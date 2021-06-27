@@ -1,0 +1,67 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <title>Expenses Tracker</title>
+</head>
+
+<body>
+    
+<nav>
+    <ul>
+        <li class="img"><img src="../static/images/dollar.png"></li>
+        <li><a href="/">Expenses Tracker</a></li>
+        
+        <li class="right"><a href="/profile">Profile</a></li>
+        
+    </ul>
+</nav>
+    <div class="body">
+        
+{% if expenses %}
+<div>
+    <h1>Summary</h1><h1>
+    <ul class="expenses-list">
+    <li class="blue">{{ budget }}$</li>
+        {% for exp in expenses %}
+            <li class="red"> - {{ exp.price }}$</li>
+        {% endfor %}
+    <li class="green">= {{ budget_left }}$ left</li>
+    </ul>
+</h1></div>
+{% endif %}
+
+
+<h1>My Expenses</h1>
+<a class="button" href="/create">Add Expense</a>
+
+    {% if expenses %}
+<div class="expenses-container">
+
+{% for exp in expenses %}
+        <div class="expense-container">
+    <h2>{{ exp.title }}</h2>
+    <hr>
+    <img src="{{ exp.image_url }}">
+    <p>{{ exp.description }}</p>
+    <div class="expense-detail">
+        <div>
+            <p>Price: {{ exp.price }}$</p>
+        </div>
+        <div class="right">
+            <a class="button edit" href="{% url 'edit expense' exp.id %}">Edit</a>
+            <a class="button delete" href="{% url 'delete expense' exp.id %}">Delete</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+    
+</div>
+{% endif %}
+    </div>
+    <footer>
+</footer>
+
+
+</body></html>
